@@ -12,11 +12,15 @@ $ npm install --save-dev gulp-debug
 
 ```js
 var gulp = require('gulp');
-var custom = require('gulp-custom');
+var sass = require('gulp-sass-native');
 
 gulp.task('default', function () {
-	return gulp.src('src/*.js')
-		.pipe(debug({'options': true}))
+	return gulp.src('src/*.scss')
+		.pipe(sass())
 		.pipe(gulp.dest('dist'));
 });
 ```
+
+## License
+
+MIT

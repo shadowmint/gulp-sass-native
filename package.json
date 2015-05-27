@@ -1,34 +1,20 @@
 {
-  "name": "gulp-debug",
-  "version": "2.0.1",
-  "description": "Debug vinyl file streams to see what files are run through your gulp pipeline",
+  "name": "gulp-sass-native",
+  "version": "0.0.1",
+  "description": "Uses the native platform sass command to compile sass files",
   "license": "MIT",
-  "repository": "sindresorhus/gulp-debug",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
-  },
+  "repository": "shadowmint/gulp-sass-native",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "node_modules/.bin/nodeunit tests/tests.js"
   },
   "files": [
     "index.js"
   ],
   "keywords": [
-    "gulpplugin",
-    "debug",
-    "debugging",
-    "inspect",
-    "log",
-    "logger",
-    "vinyl",
-    "file",
-    "inspect",
-    "fs"
+    "gulpplugin"
   ],
   "dependencies": {
     "chalk": "^1.0.0",
@@ -39,10 +25,14 @@
     "tildify": "^1.0.0"
   },
   "devDependencies": {
+    "event-stream": "^3.3.1",
     "gulp": "^3.8.10",
     "mocha": "*",
+    "nodeunit": "^0.9.1",
     "proxyquire": "^1.0.1",
+    "should": "^6.0.3",
     "sinon": "^1.9.1",
-    "strip-ansi": "^2.0.0"
+    "strip-ansi": "^2.0.0",
+    "vinyl": "^0.4.6"
   }
 }

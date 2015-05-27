@@ -2,43 +2,73 @@
 var path = require('path');
 var gutil = require('gulp-util');
 var through = require('through2');
-var tildify = require('tildify');
 var stringifyObject = require('stringify-object');
-var chalk = require('chalk');
-var objectAssign = require('object-assign');
-var prop = chalk.blue;
+var StringDecoder = require('string_decoder').StringDecoder;
+var cp = require('child_process');
+var sutils = require('./lib/stream_utils.js');
+
+var PLUGIN_NAME = 'gulp-sass-native';
+
+function common_process_raw_value(file, value, cb) {
+
+  // TODO: Check sass command exists
+
+  var sass_process = cp.spawn('sass', ['-s', '--scss']);
+  var failed = false;
+  sutils.read_from_stream(sass_process.stderr, function(value) {
+    if (value) {
+      failed = true;
+      cb(new gutil.PluginError(PLUGIN_NAME, value, {fileName: file.path}));
+    }
+  });
+  sutils.read_from_stream(sass_process.stdout, function(value) {
+    if (value && (!failed)) {
+      file.contents = new Buffer(value);
+      cb(null, file);
+    }
+  });
+
+  sass_process.stdin.write(value);
+  sass_process.stdin.end();
+}
+
+function handle_buffer_target(file, enc, cb) {
+	var content = sutils.convert_to_string(file.contents, enc);
+	common_process_raw_value(file, content, cb);
+}
+
+function handle_stream_target(file, enc, cb) {
+  var buffer = [];
+  file.contents.on('err', function(err) { cb(new gutil.PluginError(PLUGIN_NAME, "Invalid value", {fileName: file.path})); });
+  file.contents.on('readable', function() {
+		var read = file.contents.read();
+		if (read != null) {
+			buffer.push(read);
+		}
+		else {
+    	common_process_raw_value(file, buffer.join(), cb);
+		}
+	});
+}
 
 module.exports = function (opts) {
-	opts = objectAssign({
-		title: 'gulp-debug:',
-		minimal: true
-	}, opts);
+  return through.obj(function (file, enc, cb) {
 
-	if (process.argv.indexOf('--verbose') !== -1) {
-		opts.verbose = true;
-		opts.minimal = false;
-	}
+    // Pass through null objects without touching them
+    if (file.isNull()) {
+      cb(null, file);
+    }
 
-	var count = 0;
+    // For streams (ie. files, etc) stream bytes and process them async on the fly
+    if (file.isStream()) {
+      handle_stream_target(file, enc, cb);
+    }
 
-	return through.obj(function (file, enc, cb) {
-		var full =
-			'\n' +
-			(file.cwd ? 'cwd:   ' + prop(tildify(file.cwd)) : '') +
-			(file.base ? '\nbase:  ' + prop(tildify(file.base)) : '') +
-			(file.path ? '\npath:  ' + prop(tildify(file.path)) : '') +
-			(file.stat && opts.verbose ? '\nstat:' + prop(stringifyObject(file.stat, {indent: '       '}).replace(/[{}]/g, '').trimRight()) : '') +
-			'\n';
-
-		var output = opts.minimal ? prop(tildify(path.relative(process.cwd(), file.path))) : full;
-
-		count++;
-
-		gutil.log(opts.title + ' ' + output);
-
-		cb(null, file);
-	}, function (cb) {
-		gutil.log(opts.title + ' ' + chalk.green(count + ' items'));
-		cb();
-	});
+    // For buffers, convert buffer into a string and process it
+    if (file.isBuffer()) {
+      handle_buffer_target(file, enc, cb);
+    }
+  }, function (cb) {
+    cb();
+  });
 };
