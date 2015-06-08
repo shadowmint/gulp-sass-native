@@ -23,6 +23,7 @@ function common_process_raw_value(file, value, cb) {
   });
   sutils.read_from_stream(sass_process.stdout, function(value) {
     if (value && (!failed)) {
+      file.path = gutil.replaceExtension(file.path, '.css');
       file.contents = new Buffer(value);
       cb(null, file);
     }
