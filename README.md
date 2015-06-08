@@ -5,7 +5,7 @@ A simple example gulp plugin.
 ## Install
 
 ```
-$ npm install --save-dev gulp-debug
+$ npm install --save-dev shadowmint/gulp-sass-native#0.0.1
 ```
 
 ## Usage
