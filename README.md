@@ -1,6 +1,6 @@
-# gulp-custom
+# gulp-sass-native
 
-A simple example gulp plugin.
+Uses the command line sass compiler instead of libsass.
 
 ## Install
 
