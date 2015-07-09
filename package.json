@@ -1,39 +1,32 @@
 {
-  "name": "gulp-sass-native",
-  "version": "0.0.1",
-  "description": "Uses the native platform sass command to compile sass files",
+  "name": "gulp-js-combine",
+  "version": "0.0.3",
+  "description": "Packs arbitrary content into a javascript file",
   "license": "MIT",
-  "repository": "shadowmint/gulp-sass-native",
+  "repository": "shadowmint/gulp-js-combine",
   "engines": {
     "node": ">=0.10.0"
   },
-  "scripts": {
-    "test": "node_modules/.bin/nodeunit tests/tests.js"
-  },
   "files": [
     "index.js",
-    "lib"
+    "dist"
   ],
   "keywords": [
     "gulpplugin"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
+    "buffertools": "^2.1.2",
+    "gulp-tools": "git://github.com/shadowmint/gulp-tools.git#0.0.1",
     "gulp-util": "^3.0.0",
-    "object-assign": "^2.0.0",
-    "stringify-object": "^1.0.0",
     "through2": "^0.6.1",
-    "tildify": "^1.0.0"
+    "vinyl": "^0.4.6"
   },
   "devDependencies": {
-    "event-stream": "^3.3.1",
-    "gulp": "^3.8.10",
-    "mocha": "*",
-    "nodeunit": "^0.9.1",
-    "proxyquire": "^1.0.1",
-    "should": "^6.0.3",
-    "sinon": "^1.9.1",
-    "strip-ansi": "^2.0.0",
-    "vinyl": "^0.4.6"
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-jade": "^1.0.1",
+    "gulp-nodeunit": "0.0.5",
+    "gulp-sass": "^2.0.2",
+    "run-sequence": "^1.1.1"
   }
 }
