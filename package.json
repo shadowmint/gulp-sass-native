@@ -1,7 +1,7 @@
 {
-  "name": "gulp-js-combine",
-  "version": "0.0.3",
-  "description": "Packs arbitrary content into a javascript file",
+  "name": "gulp-sass-native",
+  "version": "0.0.2",
+  "description": "Gulp plugin using the native sass compiler",
   "license": "MIT",
   "repository": "shadowmint/gulp-js-combine",
   "engines": {
@@ -24,9 +24,7 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
-    "gulp-jade": "^1.0.1",
     "gulp-nodeunit": "0.0.5",
-    "gulp-sass": "^2.0.2",
     "run-sequence": "^1.1.1"
   }
 }
