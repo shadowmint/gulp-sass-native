@@ -30,8 +30,9 @@ export function test_with_stream(test) {
     path: 'valid.scss',
     cwd: './',
     base: './tests/',
-    contents: fs.createReadStream('./tests/valid.scss')
+    contents: fs.createReadStream(__dirname + '/../tests/valid.scss')
   });
+  console.log(file);
 
   var stream = plugin();
   stream.on('error', function(value) {

@@ -10,7 +10,14 @@ class Sass extends Plugin {
   }
 
   handle_string(file, value, callback) {
-    var sass_process = cp.spawn('sass', ['-s', '--scss'], { cwd: file.base });
+    console.log("Handler");
+    var isWin = /^win/.test(process.platform);
+    if (isWin) {
+      var sass_process = cp.spawn('ruby', ['C:\\Ruby22-x64\\bin\\sass', '-s', '--scss'], { cwd: file.base });
+    }
+    else {
+      var sass_process = cp.spawn('sass', ['-s', '--scss'], { cwd: file.base });
+    }
     var failed = false;
     var self = this;
     sutils.read_from_stream(sass_process.stderr, function(value) {
@@ -26,6 +33,7 @@ class Sass extends Plugin {
         callback(null, file);
       }
     });
+    console.log("Writing value to it: " + value);
     sass_process.stdin.write(value);
     sass_process.stdin.end();
   }
