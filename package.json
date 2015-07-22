@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-native",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Gulp plugin using the native sass compiler",
   "license": "MIT",
   "repository": "shadowmint/gulp-js-combine",
@@ -16,10 +16,10 @@
   ],
   "dependencies": {
     "buffertools": "^2.1.2",
-    "gulp-tools": "git://github.com/shadowmint/gulp-tools.git#0.0.2",
     "gulp-util": "^3.0.0",
     "through2": "^0.6.1",
-    "vinyl": "^0.4.6"
+    "vinyl": "^0.4.6",
+    "gulp-tools": "0.0.2"
   },
   "devDependencies": {
     "gulp": "^3.9.0",

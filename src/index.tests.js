@@ -10,11 +10,11 @@ export function test_with_buffer(test) {
 
   var stream = plugin();
   stream.on('error', function(value) {
-    console.log("Error invoking sass executable. Not installed?");
+    console.log("Error invoking sass executable.");
     console.log(value);
     test.ok(false);
   });
-  sutils.read_from_stream(stream, function(value) {
+  sutils.read_from_stream(stream, 'utf8', function(value) {
     test.ok(value.indexOf('width') != -1);
     test.done();
   });
@@ -32,15 +32,14 @@ export function test_with_stream(test) {
     base: './tests/',
     contents: fs.createReadStream(__dirname + '/../tests/valid.scss')
   });
-  console.log(file);
 
   var stream = plugin();
   stream.on('error', function(value) {
-    console.log("Error invoking sass executable. Not installed?");
+    console.log("Error invoking sass executable.");
     console.log(value);
     test.ok(false);
   });
-  sutils.read_from_stream(stream, function(value) {
+  sutils.read_from_stream(stream, 'utf8', function(value) {
     test.ok(value != '');
     test.done();
   });
@@ -64,7 +63,7 @@ export function test_with_invalid_stream(test) {
     test.ok(true);
     test.done();
   });
-  sutils.read_from_stream(stream, function(value) {
+  sutils.read_from_stream(stream, 'utf8', function(value) {
     test.ok(false); // Unreachable
   });
 

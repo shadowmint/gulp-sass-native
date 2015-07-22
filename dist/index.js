@@ -31,27 +31,32 @@ var sutils = _interopRequireWildcard(_gulpToolsLibUtils);
 var _gulpTools = require('gulp-tools');
 
 var Sass = (function (_Plugin) {
+  _inherits(Sass, _Plugin);
+
   function Sass() {
     _classCallCheck(this, Sass);
 
     _get(Object.getPrototypeOf(Sass.prototype), 'constructor', this).call(this, 'gulp-sass-native');
   }
 
-  _inherits(Sass, _Plugin);
-
   _createClass(Sass, [{
     key: 'handle_string',
     value: function handle_string(file, value, callback) {
-      var sass_process = _child_process2['default'].spawn('sass', ['-s', '--scss'], { cwd: file.base });
+      var isWin = /^win/.test(process.platform);
+      if (isWin) {
+        var sass_process = _child_process2['default'].spawn('ruby', ['C:\\Ruby22-x64\\bin\\sass', '-I.', '-s', '--scss'], { cwd: file.base });
+      } else {
+        var sass_process = _child_process2['default'].spawn('sass', ['-I.', '-s', '--scss'], { cwd: file.base });
+      }
       var failed = false;
       var self = this;
-      sutils.read_from_stream(sass_process.stderr, function (value) {
+      sutils.read_from_stream(sass_process.stderr, 'utf8', function (value) {
         if (value) {
           failed = true;
           callback(new _gulpUtil2['default'].PluginError(self.name, value, { fileName: file.path }));
         }
       });
-      sutils.read_from_stream(sass_process.stdout, function (value) {
+      sutils.read_from_stream(sass_process.stdout, 'utf8', function (value) {
         if (value && !failed) {
           file.path = _gulpUtil2['default'].replaceExtension(file.path, '.css');
           file.contents = new Buffer(value);
