@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Gulp plugin using the native sass compiler",
   "license": "MIT",
-  "repository": "shadowmint/gulp-js-combine",
+  "repository": "shadowmint/gulp-sass-native",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -19,7 +19,7 @@
     "gulp-util": "^3.0.0",
     "through2": "^0.6.1",
     "vinyl": "^0.4.6",
-    "gulp-tools": "0.0.2"
+    "gulp-tools": "shadowmint/gulp-tools#0.0.2"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
