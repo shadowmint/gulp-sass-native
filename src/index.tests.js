@@ -23,6 +23,42 @@ export function test_with_buffer(test) {
   stream.end();
 }
 
+export function test_with_invalid_sass(test) {
+  test.expect(1);
+
+  var file = new File({ path: 'source.scss', cwd: 'tests/', base: 'tests/', contents: new Buffer("html { body  .foo { width: 10px; }}}") });
+
+  var stream = plugin();
+  stream.on('error', function(value) {
+    test.ok(true);
+    test.done();
+  });
+  sutils.read_from_stream(stream, 'utf8', function(value) {
+    test.ok(false);
+  });
+
+  stream.write(file);
+  stream.end();
+}
+
+export function test_with_invalid_sass_in_stream_mode(test) {
+  test.expect(2);
+
+  var file = new File({ path: 'source.scss', cwd: 'tests/', base: 'tests/', contents: new Buffer("html { body  .foo { width: 10px; }}}") });
+
+  var stream = plugin({ stream: true, handler: function(err) { test.ok(true); }});
+  stream.on('error', function(value) {
+    test.ok(false);
+  });
+  sutils.read_from_stream(stream, 'utf8', function(value) {
+    test.ok(true);
+    test.done();
+  });
+
+  stream.write(file);
+  stream.end();
+}
+
 export function test_with_stream(test) {
   test.expect(1);
 

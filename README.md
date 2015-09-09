@@ -21,6 +21,23 @@ gulp.task('default', function () {
 });
 ```
 
+### Streaming
+
+If you have issues using gulp-plumber, you can manually handle errors
+using:
+
+```
+gulp.task('default', function () {
+	return gulp.src('src/*.scss')
+		.pipe(sass({
+      stream: true,
+      handler: function(err) { ... }))
+		.pipe(gulp.dest('dist'));
+});
+```
+
+By default (if only `stream` is set, the error is simply printed using console.log
+
 ## License
 
 MIT

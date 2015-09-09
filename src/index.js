@@ -9,6 +9,12 @@ class Sass extends Plugin {
     super('gulp-sass-native');
   }
 
+  configure(options) {
+    this.options = options ? options : {};
+    this.option("stream", false, (v) => { return (v === true) || (v === false); });
+    this.option("handler", (v) => { console.log(v); }, (v) => { return true; });
+  }
+
   handle_string(file, value, callback) {
     var isWin = /^win/.test(process.platform);
     if (isWin) {
@@ -22,7 +28,14 @@ class Sass extends Plugin {
     sutils.read_from_stream(sass_process.stderr, 'utf8', function(value) {
       if (value) {
         failed = true;
-        callback(new gutil.PluginError(self.name, value, {fileName: file.path}));
+        var error = new gutil.PluginError(self.name, value, {fileName: file.path});
+        if (!self.options.stream) {
+          callback(error);
+        }
+        else {
+          self.options.handler(error);
+          callback();
+        }
       }
     });
     sutils.read_from_stream(sass_process.stdout, 'utf8', function(value) {

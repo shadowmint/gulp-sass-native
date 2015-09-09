@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-native",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Gulp plugin using the native sass compiler",
   "license": "MIT",
   "repository": "shadowmint/gulp-sass-native",
