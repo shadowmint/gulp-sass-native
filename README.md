@@ -15,9 +15,9 @@ var gulp = require('gulp');
 var sass = require('gulp-sass-native');
 
 gulp.task('default', function () {
-	return gulp.src('src/*.scss')
-		.pipe(sass())
-		.pipe(gulp.dest('dist'));
+  return gulp.src('src/*.scss')
+    .pipe(sass())
+    .pipe(gulp.dest('dist'));
 });
 ```
 
@@ -26,13 +26,13 @@ gulp.task('default', function () {
 If you have issues using gulp-plumber, you can manually handle errors
 using:
 
-```
+```js
 gulp.task('default', function () {
-	return gulp.src('src/*.scss')
-		.pipe(sass({
+  return gulp.src('src/*.scss')
+    .pipe(sass({
       stream: true,
       handler: function(err) { ... }))
-		.pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'));
 });
 ```
 
