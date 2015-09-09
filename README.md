@@ -36,7 +36,7 @@ gulp.task('default', function () {
 });
 ```
 
-By default (if only `stream` is set, the error is simply printed using console.log
+By default (if only `stream` is set), the error is simply printed using console.log
 
 ## License
 
