@@ -5,7 +5,7 @@ Uses the command line sass compiler instead of libsass.
 ## Install
 
 ```
-$ npm install --save-dev shadowmint/gulp-sass-native#0.0.1
+$ npm install --save-dev shadowmint/gulp-sass-native#0.0.5
 ```
 
 ## Usage
