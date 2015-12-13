@@ -18,7 +18,7 @@
     "gulp-util": "^3.0.0",
     "through2": "^0.6.1",
     "vinyl": "^0.4.6",
-    "gulp-tools": "shadowmint/gulp-tools#0.0.5"
+    "gulp-tools": "shadowmint/gulp-tools#0.0.6"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
