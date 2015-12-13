@@ -12,7 +12,7 @@ class Sass extends Plugin {
   configure(options) {
     this.options = options ? options : {};
     this.option("stream", false, (v) => { return (v === true) || (v === false); });
-    this.option("handler", (v) => { console.log(v); }, (v) => { return true; });
+    this.option("handler", (v) => { return true; });
   }
 
   handle_string(file, value, callback) {
